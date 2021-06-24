@@ -1,16 +1,6 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import styles from "../styles";
+import { Text } from "react-native";
 
-function GameScreen(props) {
-  const { playerName } = props.route.params;
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity>
-        <Text style={styles.beginGameText}>Good luck {playerName}!</Text>
-      </TouchableOpacity>
-    </View>
-  );
+export default function GameScreen() {
+  return <Text>Hello</Text>;
 }
-
-export default GameScreen;

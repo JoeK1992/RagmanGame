@@ -4,7 +4,7 @@ import { Text, TextInput, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles";
 
-function HomeScreen() {
+export default function HomeScreen() {
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
@@ -34,7 +34,7 @@ function HomeScreen() {
                 setError(true);
               }
             : () => {
-                navigation.navigate("Game", { playerName: name });
+                navigation.navigate("Countdown", { playerName: name });
               }
         }
       >
@@ -43,5 +43,3 @@ function HomeScreen() {
     </View>
   );
 }
-
-export default HomeScreen;

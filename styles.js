@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
   beginGameText: {
     fontSize: 50,
   },
+  countdown: {
+    fontSize: 100,
+    marginTop: 90,
+    textAlign: "center",
+  },
 });
 
 export default styles;
