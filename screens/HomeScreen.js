@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Text, View, Image } from "react-native";
+import { Text, TextInput, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styles from "../styles";
 
 function HomeScreen() {
   const navigation = useNavigation();
+
+  const [name, setName] = useState("");
+  const [error, setError] = useState(false);
+
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Welcome to the Anagram Game!</Text>
@@ -16,11 +20,23 @@ function HomeScreen() {
         }}
         style={styles.image}
       />
+      {error && <Text style={styles.errorText}>Please enter your name</Text>}
+      <TextInput
+        placeholder={"enter your name..."}
+        style={styles.textBox}
+        onChangeText={(name) => setName(name)}
+      />
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          navigation.navigate("Game");
-        }}
+        onPress={
+          name.length < 2
+            ? () => {
+                setError(true);
+              }
+            : () => {
+                navigation.navigate("Game", { playerName: name });
+              }
+        }
       >
         <Text style={styles.buttonText}>Start</Text>
       </TouchableOpacity>

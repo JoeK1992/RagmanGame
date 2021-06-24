@@ -22,12 +22,27 @@ const styles = StyleSheet.create({
     height: 110,
     padding: 5,
     fontFamily: "Nunito_600SemiBold",
-    marginTop: 60,
+    marginTop: 40,
+    borderRadius: 60,
   },
   image: {
     height: 150,
     width: 300,
     marginTop: 60,
+  },
+  textBox: {
+    marginTop: 30,
+    backgroundColor: "#e6940b",
+    height: 50,
+    width: 180,
+    textAlign: "center",
+    fontSize: 20,
+  },
+  errorText: {
+    marginTop: 20,
+  },
+  beginGameText: {
+    fontSize: 50,
   },
 });
 

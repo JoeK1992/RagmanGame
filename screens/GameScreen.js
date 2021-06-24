@@ -1,11 +1,14 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import styles from "../styles";
 
-function GameScreen() {
+function GameScreen(props) {
+  const { playerName } = props.route.params;
   return (
     <View style={styles.container}>
-      <Text>Hello</Text>
+      <TouchableOpacity>
+        <Text style={styles.beginGameText}>Good luck {playerName}!</Text>
+      </TouchableOpacity>
     </View>
   );
 }
