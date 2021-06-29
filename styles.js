@@ -49,6 +49,31 @@ const styles = StyleSheet.create({
     marginTop: 90,
     textAlign: "center",
   },
+  answerButtonText: {
+    fontSize: 30,
+    textAlign: "center",
+    marginTop: 15,
+  },
+  answerButton: {
+    backgroundColor: "#1a759f",
+    width: 150,
+    height: 80,
+    padding: 5,
+    fontFamily: "Nunito_600SemiBold",
+    marginTop: 80,
+    borderRadius: 60,
+  },
+  anagram: {
+    fontSize: 40,
+  },
+  answerTextBox: {
+    marginTop: 160,
+    backgroundColor: "#e6940b",
+    height: 50,
+    width: 180,
+    textAlign: "center",
+    fontSize: 20,
+  },
 });
 
 export default styles;

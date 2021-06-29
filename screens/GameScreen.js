@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import React, { useState } from "react";
+import { Text, View, TextInput, TouchableOpacity } from "react-native";
 import styles from "../styles";
 import apiKey from "../apiKey";
 
-class GameScreen extends React.Component {
-  state = {
-    word: "",
-    definition: "",
-    scrambledWord: "",
-  };
+export default function GameScreen() {
+  [word, setWord] = useState("");
+  [definition, setDefinition] = useState("");
+  [scrambledWord, setScrambledWord] = useState("");
+  [counter, setCounter] = useState(20);
+  [wordLength, setWordLength] = useState(5);
 
-  getData(length) {
+  function getData(length) {
     fetch(
       `http://api.wordnik.com:80/v4/words.json/randomWords?hasDictionaryDef=true&minCorpusCount=20&minLength=${length}&maxLength=5&limit=1&api_key=${apiKey}`
     )
@@ -20,12 +20,13 @@ class GameScreen extends React.Component {
           .split("")
           .sort(() => 0.5 - Math.random())
           .join("");
-        this.setState({ word: data[0].word, scrambledWord: scrambledWord });
+        setWord(data[0].word);
+        setScrambledWord(scrambledWord);
       })
 
       .then(() => {
         fetch(
-          `https://api.wordnik.com/v4/word.json/${this.state.word}/definitions?limit=1&includeRelated=false&useCanonical=false&includeTags=false&api_key=${apiKey}`
+          `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&includeRelated=false&useCanonical=false&includeTags=false&api_key=${apiKey}`
         )
           .then((response) => response.json())
           .then((definition) => {
@@ -33,23 +34,35 @@ class GameScreen extends React.Component {
               / \([\s\S]*?\)/g
             );
 
-            this.setState({ definition: filteredDefinition });
+            setDefinition(filteredDefinition);
           });
       });
   }
 
-  componentDidMount() {
-    this.getData(5);
+  if (counter === 20) {
+    getData(wordLength);
   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>{this.state.scrambledWord}</Text>
-        <Text>{this.state.definition}</Text>
-      </View>
-    );
-  }
+  React.useEffect(() => {
+    if (counter === 1) {
+      setInterval(() => setCounter("Out of time!"), 1000);
+    }
+    const timer =
+      counter === "Out of time!"
+        ? setInterval(() => setCounter(20), 1000)
+        : setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }, [counter]);
+
+  return (
+    <View style={styles.container}>
+      <Text>{counter}</Text>
+      <Text style={styles.anagram}>{scrambledWord}</Text>
+      <Text>{definition}</Text>
+      <TextInput placeholder={"answer here"} style={styles.answerTextBox} />
+      <TouchableOpacity style={styles.answerButton}>
+        <Text style={styles.answerButtonText}>Submit</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
-
-export default GameScreen;
