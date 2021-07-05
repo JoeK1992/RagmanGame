@@ -19,7 +19,8 @@ export default function GameScreen() {
         const scrambledWord = data[0].word
           .split("")
           .sort(() => 0.5 - Math.random())
-          .join("");
+          .join("")
+          .toLowerCase();
         setWord(data[0].word);
         setScrambledWord(scrambledWord);
       })
@@ -33,15 +34,14 @@ export default function GameScreen() {
             const filteredDefinition = definition[0].text.replace(
               / \([\s\S]*?\)/g
             );
-
             setDefinition(filteredDefinition);
           });
       });
   }
 
-  if (counter === 20) {
+  React.useEffect(() => {
     getData(wordLength);
-  }
+  }, []);
 
   React.useEffect(() => {
     if (counter === 1) {
