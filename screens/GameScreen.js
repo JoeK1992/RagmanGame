@@ -44,13 +44,15 @@ export default function GameScreen() {
   }, []);
 
   React.useEffect(() => {
+    let timer = null;
     if (counter === 1) {
-      setInterval(() => setCounter("Out of time!"), 1000);
+      timer = setInterval(() => setCounter("Out of time!"), 1000);
+    } else if (counter === "Out of time!") {
+      timer = setInterval(() => setCounter(20), 1000);
+    } else {
+      timer = setInterval(() => setCounter(counter - 1), 1000);
     }
-    const timer =
-      counter === "Out of time!"
-        ? setInterval(() => setCounter(20), 1000)
-        : setInterval(() => setCounter(counter - 1), 1000);
+
     return () => clearInterval(timer);
   }, [counter]);
 
